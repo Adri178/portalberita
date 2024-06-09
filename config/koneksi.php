@@ -2,7 +2,7 @@
 define('dbhost', 'localhost');
 define('dbuser', 'root');
 define('dbpass', '');
-define('dbname', 'materi_portalberita');
+define('dbname', 'realestatephp');
 
 $mysqli = new mysqli(dbhost,dbuser,dbpass,dbname);
 

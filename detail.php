@@ -8,13 +8,13 @@ berita.teks_berita,
 berita.tgl_posting,
 berita.id_admin,
 berita.dilihat,
-admin.id_admin,
-admin.nama_lengkap,
+admin.aid,
+admin.auser,
 kategori.id_kategori,
 kategori.kategori
 FROM
 admin
-INNER JOIN berita ON admin.id_admin = berita.id_admin
+INNER JOIN berita ON admin.aid = berita.id_admin
 INNER JOIN kategori ON kategori.id_kategori = berita.id_kategori
 WHERE berita.id_berita = "'.$_GET['id'].'"';
 
@@ -48,7 +48,7 @@ if ($found > 0) {
 							<div class="row post-meta">
 								<div class="col-sm-3">
 									<i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;
-									<a <a href="<?php echo $base_url.'author.php?id='.$detail['id_kategori']; ?>"><?php echo $detail['nama_lengkap']; ?></a>
+									<a <a href="<?php echo $base_url.'author.php?id='.$detail['id_kategori']; ?>"><?php echo $detail['auser']; ?></a>
 								</div>
 								<div class="col-sm-3">
 									<i class="glyphicon glyphicon-calendar"></i>&nbsp;&nbsp;<?php echo $detail['tgl_posting']; ?>

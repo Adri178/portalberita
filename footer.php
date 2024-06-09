@@ -5,12 +5,12 @@ berita.judul,
 berita.gambar,
 berita.tgl_posting,
 berita.id_admin,
-admin.nama_lengkap,
+admin.auser,
 berita.dilihat,
 kategori.id_kategori
 FROM
 berita
-INNER JOIN admin ON berita.id_admin = admin.id_admin
+INNER JOIN admin ON berita.id_admin = admin.aid
 INNER JOIN kategori ON kategori.id_kategori = berita.id_kategori
 WHERE
 berita.id_kategori = "1"
@@ -24,12 +24,12 @@ berita.judul,
 berita.gambar,
 berita.tgl_posting,
 berita.id_admin,
-admin.nama_lengkap,
+admin.auser,
 berita.dilihat,
 kategori.id_kategori
 FROM
 berita
-INNER JOIN admin ON berita.id_admin = admin.id_admin
+INNER JOIN admin ON berita.id_admin = admin.aid
 INNER JOIN kategori ON kategori.id_kategori = berita.id_kategori
 WHERE
 berita.id_kategori = "2"
@@ -43,12 +43,12 @@ berita.judul,
 berita.gambar,
 berita.tgl_posting,
 berita.id_admin,
-admin.nama_lengkap,
+admin.auser,
 berita.dilihat,
 kategori.id_kategori
 FROM
 berita
-INNER JOIN admin ON berita.id_admin = admin.id_admin
+INNER JOIN admin ON berita.id_admin = admin.aid
 INNER JOIN kategori ON kategori.id_kategori = berita.id_kategori
 WHERE
 berita.id_kategori = "3"
@@ -71,7 +71,7 @@ $list_teknologi = $mysqli->query($teknologi) or die("Error Teknologi".$mysqli->e
 						<a href="<?php echo $base_url."detail.php?id=".$teknologi_list['id_berita']."&amp;judul=".strtolower(str_replace(" ", "-", $teknologi_list['judul'])); ?>">
 							<img src="<?php echo $base_url."images/".$teknologi_list['gambar']; ?>" class="img-responsive wow fadeIn">
 						</a>
-						<p>Oleh: <a href="<?php echo $base_url."author.php?id=".$teknologi_list['id_admin']; ?>"><?php echo $teknologi_list['nama_lengkap']; ?></a>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;<?php echo $teknologi_list['tgl_posting']; ?></p>
+						<p>Oleh: <a href="<?php echo $base_url."author.php?id=".$teknologi_list['aid']; ?>"><?php echo $teknologi_list['auser']; ?></a>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;<?php echo $teknologi_list['tgl_posting']; ?></p>
 						<a href="<?php echo $base_url."detail.php?id=".$teknologi_list['id_berita']."&amp;judul=".strtolower(str_replace(" ", "-", $teknologi_list['judul'])); ?>">
 							<?php echo $teknologi_list['judul']; ?>
 						</a>
@@ -87,7 +87,7 @@ $list_teknologi = $mysqli->query($teknologi) or die("Error Teknologi".$mysqli->e
 						<a href="<?php echo $base_url."detail.php?id=".$nasional_list['id_berita']."&amp;judul=".strtolower(str_replace(" ", "-", $nasional_list['judul'])); ?>">
 							<img src="<?php echo $base_url."images/".$nasional_list['gambar']; ?>" class="img-responsive wow fadeIn">
 						</a>
-						<p>Oleh: <a href="<?php echo $base_url."author.php?id=".$nasional_list['id_admin']; ?>"><?php echo $nasional_list['nama_lengkap']; ?></a>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;<?php echo $nasional_list['tgl_posting']; ?></p>
+						<p>Oleh: <a href="<?php echo $base_url."author.php?id=".$nasional_list['aid']; ?>"><?php echo $nasional_list['auser']; ?></a>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;<?php echo $nasional_list['tgl_posting']; ?></p>
 						<a href="<?php echo $base_url."detail.php?id=".$nasional_list['id_berita']."&amp;judul=".strtolower(str_replace(" ", "-", $nasional_list['judul'])); ?>">
 							<?php echo $nasional_list['judul']; ?>
 						</a>
@@ -103,7 +103,7 @@ $list_teknologi = $mysqli->query($teknologi) or die("Error Teknologi".$mysqli->e
 						<a href="<?php echo $base_url."detail.php?id=".$olahraga_list['id_berita']."&amp;judul=".strtolower(str_replace(" ", "-", $olahraga_list['judul'])); ?>">
 							<img src="<?php echo $base_url."images/".$olahraga_list['gambar']; ?>" class="img-responsive wow fadeIn">
 						</a>
-						<p>Oleh: <a href="<?php echo $base_url."author.php?id=".$olahraga_list['id_admin']; ?>"><?php echo $olahraga_list['nama_lengkap']; ?></a>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;<?php echo $olahraga_list['tgl_posting']; ?></p>
+						<p>Oleh: <a href="<?php echo $base_url."author.php?id=".$olahraga_list['aid']; ?>"><?php echo $olahraga_list['auser']; ?></a>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;<?php echo $olahraga_list['tgl_posting']; ?></p>
 						<a href="<?php echo $base_url."detail.php?id=".$olahraga_list['id_berita']."&amp;judul=".strtolower(str_replace(" ", "-", $olahraga_list['judul'])); ?>">
 							<?php echo $olahraga_list['judul']; ?>
 						</a>
@@ -111,11 +111,6 @@ $list_teknologi = $mysqli->query($teknologi) or die("Error Teknologi".$mysqli->e
 				<?php } ?>
 				</ul>
 			</div>
-		</div>
-	</div>
-	<div class="row footer-bottom">
-		<div class="col-md-12">
-			<span class="copy">Copyright &copy; <?php echo date('Y');?> Berita Kita</span>
 		</div>
 	</div>
 </div>

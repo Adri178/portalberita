@@ -1,4 +1,5 @@
-<?php include 'header.php';
+<?php 
+include 'header.php';
 
 //Jumlah Perhalaman
 $limit = 5;
@@ -18,13 +19,13 @@ berita.gambar,
 berita.teks_berita,
 berita.tgl_posting,
 berita.dilihat,
-admin.id_admin,
-admin.nama_lengkap,
+admin.aid,
+admin.auser,
 kategori.id_kategori,
 kategori.kategori
 FROM
 admin
-INNER JOIN berita ON admin.id_admin = berita.id_admin
+INNER JOIN berita ON admin.aid = berita.id_admin
 INNER JOIN kategori ON kategori.id_kategori = berita.id_kategori
 ORDER BY
 berita.tgl_posting DESC
@@ -32,7 +33,6 @@ LIMIT ".$mysqli->real_escape_string($offset).",". $limit;
 
 //data untuk dihitung
 $sql_rec = "SELECT id_berita FROM berita";
-
 $total_rec = $mysqli->query($sql_rec);
 
 //Menghitung data yang diambil
@@ -64,8 +64,8 @@ $total_page = ceil($total_rec_num/$limit);
 							<div class="row post-meta">
 								<div class="col-sm-3">
 									<i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;
-									<a href="<?php echo $base_url."author.php?id=".$index['id_admin']; ?>">
-										<?php echo $index['nama_lengkap']; ?>
+									<a href="<?php echo $base_url."author.php?id=".$index['aid']; ?>">
+										<?php echo $index['auser']; ?>
 									</a>
 								</div>
 								<div class="col-sm-3">

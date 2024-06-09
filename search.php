@@ -18,13 +18,13 @@ berita.gambar,
 berita.teks_berita,
 berita.tgl_posting,
 berita.dilihat,
-admin.id_admin,
-admin.nama_lengkap,
+admin.aid,
+admin.auser,
 kategori.id_kategori,
 kategori.kategori
 FROM
 admin
-INNER JOIN berita ON admin.id_admin = berita.id_admin
+INNER JOIN berita ON admin.aid = berita.id_admin
 INNER JOIN kategori ON kategori.id_kategori = berita.id_kategori
 WHERE
 berita.judul LIKE '%".$query."%' OR
@@ -71,8 +71,8 @@ $total_page = ceil($total_rec_num/$limit);
 							<div class="row post-meta">
 								<div class="col-sm-3">
 									<i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;
-									<a href="<?php echo $base_url."author.php?id=".$post_search['id_admin']; ?>">
-										<?php echo $post_search['nama_lengkap']; ?>
+									<a href="<?php echo $base_url."author.php?id=".$post_search['aid']; ?>">
+										<?php echo $post_search['auser']; ?>
 									</a>
 								</div>
 								<div class="col-sm-3">

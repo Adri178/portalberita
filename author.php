@@ -9,7 +9,7 @@ else $noPage = 1;
 
 $offset = ($noPage - 1) * $limit;
 
-$sqlAuthor = "SELECT nama_lengkap, foto, deskripsi FROM admin WHERE id_admin='".$mysqli->real_escape_string($_GET['id'])."'";
+$sqlAuthor = "SELECT auser, aimage FROM admin WHERE aid='".$mysqli->real_escape_string($_GET['id'])."'";
 
 $qryAuthor = $mysqli->query($sqlAuthor) or die($mysqli->error);
 
@@ -25,15 +25,15 @@ if ($jumlah > 0) {
 	berita.teks_berita,
 	berita.tgl_posting,
 	berita.dilihat,
-	admin.id_admin,
-	admin.nama_lengkap,
+	admin.aid,
+	admin.auser,
 	kategori.id_kategori,
 	kategori.kategori
 	FROM
 	admin
-	INNER JOIN berita ON admin.id_admin = berita.id_admin
+	INNER JOIN berita ON admin.aid = berita.id_admin
 	INNER JOIN kategori ON kategori.id_kategori = berita.id_kategori
-	WHERE admin.id_admin = '".$mysqli->real_escape_string($_GET['id'])."'
+	WHERE admin.aid = '".$mysqli->real_escape_string($_GET['id'])."'
 	ORDER BY
 	berita.tgl_posting DESC
 	LIMIT ".$offset.",". $limit;
@@ -59,14 +59,13 @@ if ($jumlah > 0) {
 					<div class="col-md-8">
 						<div class="author">
 							<div class="author-img wow fadeIn" data-wow-duration="3s" data-wow-delay="5s">
-								<img width="150" height="150" src="<?php echo $base_url; ?>images/author/<?php echo $author['foto']; ?>">
+								<img width="150" height="150" src="<?php echo $base_url; ?>images/author/<?php echo $author['aimage']; ?>">
 							</div>
 							<div class="author-data">
-								<p><span class="author-name"><?php echo $author['nama_lengkap']; ?></span></p>
-								<p class="author-desc text-muted"><?php echo $author['deskripsi']; ?></p>
+								<p><span class="author-name"><?php echo $author['auser']; ?></span></p>
 							</div>
 						</div>
-						<h4>Berita yang diposting oleh "<strong><?php echo $author['nama_lengkap']; ?></strong>"</h4>
+						<h4>Berita yang diposting oleh "<strong><?php echo $author['auser']; ?></strong>"</h4>
 						<?php while ($post_auth = $qryIndex->fetch_assoc()) { ?>
 						<div class="post">
 							<div class="row post-title">
@@ -78,7 +77,7 @@ if ($jumlah > 0) {
 							</div>
 							<div class="row post-meta">
 								<div class="col-sm-3">
-									<i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;<?php echo $author['nama_lengkap']; ?>
+									<i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;<?php echo $author['auser']; ?>
 								</div>
 								<div class="col-sm-3">
 									<i class="glyphicon glyphicon-calendar"></i>&nbsp;&nbsp;<?php echo $post_auth['tgl_posting']; ?>

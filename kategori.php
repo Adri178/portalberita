@@ -24,13 +24,13 @@ if ($jumlah > 0) {
 	berita.teks_berita,
 	berita.tgl_posting,
 	berita.dilihat,
-	admin.id_admin,
-	admin.nama_lengkap,
+	admin.aid,
+	admin.auser,
 	kategori.id_kategori,
 	kategori.kategori
 	FROM
 	admin
-	INNER JOIN berita ON admin.id_admin = berita.id_admin
+	INNER JOIN berita ON admin.aid = berita.id_admin
 	INNER JOIN kategori ON kategori.id_kategori = berita.id_kategori
 	WHERE kategori.id_kategori = '".$mysqli->real_escape_string($_GET['id'])."'
 	ORDER BY
@@ -69,8 +69,8 @@ if ($jumlah > 0) {
 							<div class="row post-meta">
 								<div class="col-sm-3">
 									<i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;
-									<a href="<?php echo $base_url."author.php?id=".$post_kat['id_admin']; ?>">
-										<?php echo $post_kat['nama_lengkap']; ?>
+									<a href="<?php echo $base_url."author.php?id=".$post_kat['aid']; ?>">
+										<?php echo $post_kat['auser']; ?>
 									</a>
 								</div>
 								<div class="col-sm-3">

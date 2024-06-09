@@ -17,10 +17,10 @@ berita.judul,
 berita.gambar,
 berita.tgl_posting,
 berita.id_admin,
-admin.nama_lengkap
+admin.auser
 FROM
 berita
-INNER JOIN admin ON berita.id_admin = admin.id_admin
+INNER JOIN admin ON berita.id_admin = admin.aid
 ORDER BY
 berita.tgl_posting DESC
 LIMIT 0, 5
@@ -31,12 +31,12 @@ berita.id_berita,
 berita.judul,
 berita.gambar,
 berita.tgl_posting,
-admin.nama_lengkap,
+admin.auser,
 berita.id_admin,
 berita.dilihat
 FROM
 berita
-INNER JOIN admin ON berita.id_admin = admin.id_admin
+INNER JOIN admin ON berita.id_admin = admin.aid
 ORDER BY
 berita.dilihat DESC
 LIMIT 0, 5
@@ -74,7 +74,7 @@ $list_populer = $mysqli->query($populer) or die ($mysqli->error);
 									<a <a href="<?php echo $base_url."detail.php?id=".$populer_list['id_berita']."&amp;judul=".strtolower(str_replace(" ", "-", $populer_list['judul'])); ?>">
 										<img src="<?php echo $base_url."images/".$populer_list['gambar']; ?>" class="img-responsive wow fadeIn">
 									</a>
-									<p>Oleh: <a href="<?php echo $base_url."author.php?id=".$populer_list['id_admin']; ?>"><?php echo $populer_list['nama_lengkap']; ?></a>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;<?php echo $populer_list['tgl_posting']; ?></p>
+									<p>Oleh: <a href="<?php echo $base_url."author.php?id=".$populer_list['id_admin']; ?>"><?php echo $populer_list['auser']; ?></a>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;<?php echo $populer_list['tgl_posting']; ?></p>
 									<a href="<?php echo $base_url."detail.php?id=".$populer_list['id_berita']."&amp;judul=".strtolower(str_replace(" ", "-", $populer_list['judul'])); ?>">
 										<?php echo $populer_list['judul']; ?>
 									</a>
@@ -90,7 +90,7 @@ $list_populer = $mysqli->query($populer) or die ($mysqli->error);
 									<a href="<?php echo $base_url."detail.php?id=".$terkini_list['id_berita']."&amp;judul=".strtolower(str_replace(" ", "-", $terkini_list['judul'])); ?>">
 										<img src="<?php echo $base_url."images/".$terkini_list['gambar']; ?>" class="img-responsive wow fadeIn">
 									</a>
-									<p>Oleh: <a href="<?php echo $base_url."author.php?id=".$terkini_list['id_admin']; ?>"><?php echo $terkini_list['nama_lengkap']; ?></a>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;<?php echo $terkini_list['tgl_posting']; ?></p>
+									<p>Oleh: <a href="<?php echo $base_url."author.php?id=".$terkini_list['id_admin']; ?>"><?php echo $terkini_list['auser']; ?></a>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;<?php echo $terkini_list['tgl_posting']; ?></p>
 									<a href="<?php echo $base_url."detail.php?id=".$terkini_list['id_berita']."&amp;judul=".strtolower(str_replace(" ", "-", $terkini_list['judul'])); ?>">
 										<?php echo $terkini_list['judul']; ?>
 									</a>

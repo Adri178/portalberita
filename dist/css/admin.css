@@ -1,76 +1,78 @@
 .navbar {
-	margin-bottom:0;
+	margin-bottom: 0;
 }
+
 .clear {
-	clear:both;
-	margin-bottom:5px;
-	margin-top:5px;
+	clear: both;
+	margin-bottom: 5px;
+	margin-top: 5px;
 }
 
 .body {
-	min-height:541px;
+	min-height: 541px;
 }
 
 .sidebar {
-	padding:0;
+	padding: 0;
 }
 
-.nav-side-menu > li > a {
+.nav-side-menu>li>a {
 	border-bottom: 1px solid #fff;
 	color: #fff;
-	font-size:1em;
+	font-size: 1em;
 }
 
-.nav-side-menu > li > a:hover,
-.nav-side-menu > li > a:focus {
-	background-color:#1967BE;
-	color:#fff;
+.nav-side-menu>li>a:hover,
+.nav-side-menu>li>a:focus {
+	background-color: #17c788;
+	color: #fff;
 	border-bottom: 1px solid #fff;
 }
 
 .nav-side-menu {
-	background-color: #2780E3;
+	background-color: #17c788;
 }
 
 .body {
-	background-color:#ccc;
+	background-color: #ccc;
 }
 
 .footer {
 	height: 50px;
-	background-color:#000;
-	text-align:center;
+	background-color: #000;
+	text-align: center;
 }
+
 .main-content {
 	margin-top: 20px;
 }
 
 .copyright {
-	line-height:50px;
-	color:#fff;
+	line-height: 50px;
+	color: #fff;
 }
 
 .page-header {
-	margin-top:0;
+	margin-top: 0;
 }
 
 [placeholder='Judul Berita'] {
 	padding: 5px 15px;
-	font-size:1.3em;
-	font-weight:bold;
+	font-size: 1.3em;
+	font-weight: bold;
 }
 
-.dropdown-menu > li > a:hover {
+.dropdown-menu>li>a:hover {
 	background: #fff;
-	color:#2780E3;
+	color: #17c788;
 }
 
 .not-found {
-	text-align:center;
+	text-align: center;
 }
 
-.not-found > h1 {
-	font-size:10em;
+.not-found>h1 {
+	font-size: 10em;
 }
 
 .profile-pic {
@@ -79,7 +81,7 @@
 	margin-bottom: 25px;
 }
 
-.profile-pic > img {
+.profile-pic>img {
 	height: 175px;
 	width: 175px;
 }
@@ -88,7 +90,7 @@
 	width: 100%;
 }
 
-.pesan-table > tbody > tr {
+.pesan-table>tbody>tr {
 	border-bottom: 1px solid #eee;
 	height: 35px;
 }

@@ -1,4 +1,5 @@
 <?php
+session_start();
 error_reporting(0);
 require_once 'config/config.php';
 require_once 'config/koneksi.php';
@@ -43,64 +44,65 @@ $explode_url = explode("/", $url);
 </head>
 <body>
 <div class="container-fluid wrapper">
-	<div class="row">
-		<nav class="navbar navbar-inverse navbar-top">
-  			<div class="container">
-    			<!-- Brand and toggle get grouped for better mobile display -->
-    			<div class="navbar-header">
-      				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        				<span class="sr-only">Toggle navigation</span>
-        				<span class="icon-bar"></span>
-        				<span class="icon-bar"></span>
-        				<span class="icon-bar"></span>
-      				</button>
-    			</div>
+  <div class="row">
+      <nav class="navbar navbar-inverse navbar-top" style="height: 83px; background-color: #17c788; border-color: #17c788;">
+          <div class="container">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </button>
+              </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav headline-container">
-                <p class="navbar-text headline">Breaking News</p>
-                <li>
-                  <ul id="headlines" class="headlines">
-                    <?php while ($breaking_news = $qryBreaking->fetch_array()) { ?>
-                    <li>
-                      <a href="<?php echo $base_url."detail.php?id=".$breaking_news['id_berita']."&amp;judul=".strtolower(str_replace(" ", "-", $breaking_news['judul'])); ?>">
-                        <?php echo $breaking_news['judul']; ?>
-                      </a>
-                    </li>
-                    <?php } ?>
+              <!-- Collect the nav links, forms, and other content for toggling -->
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <ul class="nav navbar-nav headline-container">
+                      <p class="navbar-text headline" style="background-color: #121212;">Breaking News</p>
+                      <li>
+                          <ul id="headlines" class="headlines">
+                              <?php while ($breaking_news = $qryBreaking->fetch_array()) { ?>
+                                  <li>
+                                      <a href="<?php echo $base_url . "detail.php?id=" . $breaking_news['id_berita'] . "&amp;judul=" . strtolower(str_replace(" ", "-", $breaking_news['judul'])); ?>">
+                                          <?php echo $breaking_news['judul']; ?>
+                                      </a>
+                                  </li>
+                              <?php } ?>
+                          </ul>
+                      </li>
                   </ul>
-                </li>
-              </ul>
-      				<ul class="nav navbar-nav navbar-right">
-              <?php if ($explode_url[2] == 'index.php' || $explode_url[2] == '') { ?>
+                  <ul class="nav navbar-nav navbar-right">
+                    <li>
+                      <a class="d-flex align-items-center" href="../index.php" role="button" style="background-color: #7c788; margin-top:4px; font-size: 18px;">
+                        <i class="fa fa-arrow-left" style="margin-left: 5px;"></i> <!-- Icon panah ke bawah -->
+                        Kembali
+                        </a>
+                    </li>
+                    <?php if (isset($_SESSION['uemail'])) { ?>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #7c788; font-size: 18px;">
+                            <img src="../admin/user/<?= htmlspecialchars($_SESSION['uimage']); ?>" alt="User Photo" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 8px;">
+                            <?= htmlspecialchars($_SESSION['uname']); ?>
+                            <i class="fa fa-chevron-down" style="margin-left: 5px;"></i> <!-- Icon panah ke bawah -->
+                          </a>
+                        </a>
+                        <ul class="dropdown-menu" style="width:182px;">
+                            <li class="nav-item"> <a class="nav-link" href="../profile.php">Profile</a> </li>
+                            <li class="nav-item"> <a class="nav-link" href="../feature.php">Your Property</a> </li>
+                            <li class="nav-item"> <a class="nav-link" href="../logout.php">Logout</a> </li>
+                        </ul>
+                    </li>
+                    <?php } else { ?>
+                    <li class="nav-item"> <a class="nav-link" href="login.php" style="font-size: 16px;">Login/Register</a> </li>
+                    <?php } ?>
+                </ul>
+              </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+      </nav>
+  </div>
 
-                <li class="active"><a href="index.php">Beranda</a></li>
-
-              <?php } else { ?>
-
-                <li><a href="index.php">Beranda</a></li>
-
-              <?php } ?>
-
-              <?php
-                while ($hal=$qryHal->fetch_array()) {
-                  if ($hal['link'] == $explode_url[2]) {
-              ?>
-                <li class="active"><a href="<?php echo $base_url.$hal['link']; ?>"><?php echo $hal['nm_halaman']; ?></a></li>
-              <?php
-                  } else {
-              ?>
-                <li><a href="<?php echo $base_url.$hal['link']; ?>"><?php echo $hal['nm_halaman']; ?></a></li>
-              <?php
-                  }
-              ?>
-              <?php } ?>
-    	  			</ul>
-    			</div><!-- /.navbar-collapse -->
-  			</div><!-- /.container-fluid -->
-		</nav>
-	</div>
 	<div class="row header-wrapper">
 		<div class="container">
 		<div class="header">

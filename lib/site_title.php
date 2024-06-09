@@ -1,99 +1,89 @@
 <?php
 function site_title() {
-	global $mysqli;
-	$site_title = 'Berita Kita';
-	$url = $_SERVER['REQUEST_URI'];
-	$explode_url = explode("/", $url);
-	if (!isset($_GET['id'])) {
-		switch ($explode_url[2]) {
-			case '':
-				$site_subtitle = 'Sumber berita terpercaya';
-				$title = $site_title." | ".$site_subtitle;
-				break;
+    global $mysqli;
+    $site_title = 'Berita Kita';
 
-			case 'index.php':
-				$site_subtitle = 'Sumber berita terpercaya';
-				$title = $site_title." | ".$site_subtitle;
-				break;
+    // Mendapatkan URL dan memisahkan jalur dan query
+    $url = $_SERVER['REQUEST_URI'];
+    $parsed_url = parse_url($url);
+    $path = $parsed_url['path'];
+    $path_segments = explode("/", $path);
 
-			case 'about.php':
-				$site_subtitle = 'Tentang Berita Kita';
-				$title = $site_subtitle." | ".$site_title;
-				break;
+    // Mendapatkan nama halaman
+    $page = end($path_segments);
 
-			case 'contact.php':
-				$site_subtitle = 'Kontak Kami';
-				$title = $site_subtitle." | ".$site_title;
-				break;
+    // Default title
+    $site_subtitle = 'Halaman Tidak Ditemukan';
+    $title = $site_subtitle . " | " . $site_title;
 
-			case 'buku-tamu.php':
-				$site_subtitle = 'Buku Tamu';
-				$title = $site_subtitle." | ".$site_title;
-				break;
+    // Jika tidak ada parameter id
+    if (!isset($_GET['id'])) {
+        switch ($page) {
+            case '':
+            case 'index.php':
+                $site_subtitle = 'Sumber berita terpercaya';
+                break;
+            case 'about.php':
+                $site_subtitle = 'Tentang Berita Kita';
+                break;
+            case 'contact.php':
+                $site_subtitle = 'Kontak Kami';
+                break;
+            case 'buku-tamu.php':
+                $site_subtitle = 'Buku Tamu';
+                break;
+            default:
+                $site_subtitle = 'Halaman Tidak Ditemukan';
+                break;
+        }
+        $title = $site_subtitle . " | " . $site_title;
+    } else {
+        $id = $_GET['id'];
 
-			default:
-				$site_subtitle = 'Halaman Tidak Ditemukan';
-				$title = $site_subtitle." | ".$site_title;
-				break;
-		}
-	} else {
-		$id = $_GET['id'];
-		$explode_again = explode("?", $explode_url[2]);
-		switch ($explode_again[0]) {
-			case 'kategori.php':
-				$sql = "SELECT kategori FROM kategori WHERE id_kategori='".$id."'";
-				$qry = $mysqli->query($sql) or die($mysqli->error);
-				$data = $qry->fetch_assoc();
-				$site_subtitle = $data['kategori'];
-				break;
+        switch ($page) {
+            case 'kategori.php':
+                $sql = "SELECT kategori FROM kategori WHERE id_kategori='" . $id . "'";
+                $qry = $mysqli->query($sql) or die($mysqli->error);
+                if ($qry->num_rows > 0) {
+                    $data = $qry->fetch_assoc();
+                    $site_subtitle = $data['kategori'];
+                } else {
+                    $site_subtitle = 'Kategori Tidak Ditemukan';
+                }
+                break;
+            case 'detail.php':
+                $sql = "SELECT judul FROM berita WHERE id_berita='" . $id . "'";
+                $qry = $mysqli->query($sql) or die("Error di title berita:" . $mysqli->error);
+                if ($qry->num_rows > 0) {
+                    $data = $qry->fetch_assoc();
+                    $site_subtitle = $data['judul'];
+                } else {
+                    $site_subtitle = 'Berita Tidak Ditemukan';
+                }
+                break;
+            case 'author.php':
+                $sql = "SELECT auser FROM admin WHERE aid='" . $id . "'";
+                $qry = $mysqli->query($sql) or die("Error di title kategori:" . $mysqli->error);
+                if ($qry->num_rows > 0) {
+                    $data = $qry->fetch_assoc();
+                    $site_subtitle = "Berita oleh " . $data['auser'];
+                } else {
+                    $site_subtitle = 'Author Tidak Ditemukan';
+                }
+                break;
+            default:
+                $site_subtitle = 'Halaman Tidak Ditemukan';
+                break;
+        }
+        $title = $site_subtitle . " | " . $site_title;
+    }
 
-			case 'detail.php':
-				$sql = "SELECT judul FROM berita WHERE id_berita='".$id."'";
-				$qry = $mysqli->query($sql) or die("Error di title berita:".$mysqli->error);
-				$data = $qry->fetch_assoc();
-				$site_subtitle = $data['judul'];
-				break;
+    if (isset($_GET['q'])) {
+        $q = $_GET['q'];
+        $site_subtitle = 'Search: ' . $q;
+        $title = $site_subtitle . " | " . $site_title;
+    }
 
-			case 'author.php':
-				$sql = "SELECT nama_lengkap FROM admin WHERE id_admin='".$id."'";
-				$qry = $mysqli->query($sql) or die("Error di title kategori:".$mysqli->error);
-				$data = $qry->fetch_assoc();
-				$site_subtitle = "Berita oleh ".$data['nama_lengkap'];
-				break;
-		}
-		$title = $site_subtitle." | ".$site_title;
-	}
-
-	if (isset($_GET['q'])) {
-		$q = $_GET['q'];
-		$site_subtitle = 'Search: '.$q;
-		$title = $site_subtitle." | ".$site_title;
-	}
-
-	if (isset($_GET['p'])) {
-		$explode_again = explode("?", $explode_url[2]);
-		switch ($explode_again[0]) {
-			case 'index.php':
-				$site_subtitle = 'Sumber berita terpercaya';
-				$title = $site_title." | ".$site_subtitle;
-				break;
-			case 'kategori.php':
-				$site_subtitle = $data['kategori'];
-				$title = $site_subtitle." | ".$site_title;
-				break;
-			case 'detail.php':
-				$site_subtitle = $data['judul'];
-				$title = $site_subtitle." | ".$site_title;
-				break;
-			case 'author':
-				$site_title = $data['nama_lengkap'];
-				$title = $site_subtitle." | ".$site_title;
-				break;
-			case 'search.php';
-				$site_subtitle = 'Search: '.$q;
-				$title = $site_subtitle." | ".$site_title;
-		}
-	}
-
-	return $title;
+    return $title;
 }
+?>
